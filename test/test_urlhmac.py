@@ -1,5 +1,4 @@
 import urlhmac
-import time
 
 import testcases
 

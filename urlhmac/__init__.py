@@ -41,6 +41,14 @@ def check_secure_link(url, key, expire=None, t=None):
 
 
 def get_secure_link(url, key, expire=60, t=None):
+    """Sign url or POST data with hmac
+
+    :param str url: The url to sign
+    :param str key: The shared secret
+    :param int expire: Time in seconds until link expires
+    :param int t: The current timestamp (utc)
+    :rtype: str
+    """
     if '?' in url:
         url += '&'
     else:
