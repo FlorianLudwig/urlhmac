@@ -3,6 +3,7 @@ import hmac
 import hashlib
 import base64
 import urlparse
+import urllib
 
 
 def check_secure_link(url, key, expire=None, t=None):
@@ -59,5 +60,4 @@ def get_secure_link(url, key, expire=60, t=None):
     expire += t
     url += 'e=' + str(expire)
     s = hmac.new(key, url, hashlib.sha256).digest()
-    return url + '&s=' + base64.b64encode(s).rstrip('=')
-
+    return url + '&s=' + urllib.quote(base64.b64encode(s).rstrip('='))
