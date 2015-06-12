@@ -29,9 +29,29 @@ function get_secure_link($url, $key, $expire=60, $t=NULL) {
     return $url . '&s=' . $encoded;
 }
 
-// echo get_secure_link('/some_path', 'foobar', 60, 0) . "\n";
-// echo hash_hmac('sha256', 'test', 'foo') . "\n";
 
+/**
+ * @param string $url
+ * @return boolean
+ */
+function check_secure_link($url, $key, $t=NULL) {
+    if($t === NULL) {
+       $t = time();
+    }
 
-// e = expire
-// st = digest
+    $queryStr = parse_url($url, PHP_URL_QUERY);
+    parse_str($queryStr, $params);
+    if (! isset($params['e']) || ! isset($params['s'])) {
+        return false;
+    }
+    $expiry = $params['e'];
+    $signature = $params['s'];
+    if ($expiry < $t) {
+        return false;
+    }
+
+    $pos = strrpos($url, 'e=');
+    $base_url = substr($url, 0, $pos-1);
+    $signed_url = get_secure_link($base_url, $key, $expiry, 0);
+    return $url === $signed_url;
+}

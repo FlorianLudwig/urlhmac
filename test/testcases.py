@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import time
 
 
@@ -8,7 +9,11 @@ URLS = [
     'http://example.com/foo?a=1'
 ]
 
-KEYS = ['1234', 'SFwje rhawuer']
+# lets have some creazy utf-8 key
+KEYS = ['1234', 'SFwje rhawuer'] # TODO u'♥ unicode ♥'
 
+# checl different expire times are used
 EXPIRES = [5, 60]
-TIMES = [0, int(time.time())]
+
+# check different times, including one bigger than 32 bit
+TIMES = [0, int(time.time()), 2**33]

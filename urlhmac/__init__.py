@@ -6,25 +6,30 @@ import urlparse
 import urllib
 
 
-def check_secure_link(url, key, expire=None, t=None):
+def check_secure_link(url, key, t=None):
+    """check given url's signature with provided key
+
+    :param url:
+    :param key:
+    :param t:
+    """
     if '&s=' not in url:
         return False
         # raise AttributeError('{} is not a singed url'.format(
         #     repr(url)
         # ))
 
-    if expire is None:
-        query = urlparse.urlparse(url).query
-        query = urlparse.parse_qs(query)
-        if not 'e' in query:
-            return False
-            # raise AttributeError('{} is not a singed url'.format(
-            #     repr(url)
-            # ))
-        expire = query['e'][-1]
-        if not expire.isdigit():
-            return False
-        expire = int(expire)
+    query = urlparse.urlparse(url).query
+    query = urlparse.parse_qs(query)
+    if not 'e' in query:
+        return False
+        # raise AttributeError('{} is not a singed url'.format(
+        #     repr(url)
+        # ))
+    expire = query['e'][-1]
+    if not expire.isdigit():
+        return False
+    expire = int(expire)
 
     if t is None:
         t = int(time.time())
