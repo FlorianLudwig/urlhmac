@@ -23,6 +23,9 @@ function get_secure_link($url, $key, $expire=60, $t=NULL) {
     $url .= 'e=' . $expire;
     $hmac = hash_hmac('sha256', $url, $key, true);
     $encoded = rtrim(base64_encode($hmac), '=');
+    // use url safe alphabet for base64
+    // as suggeted in rfc4648
+    $encoded = strtr($encoded, '+/', '-_');
     return $url . '&s=' . $encoded;
 }
 
