@@ -38,12 +38,17 @@ def check_secure_link(url, key, t=None):
         # link is expired
         return False
 
-    base_url, e = url.rsplit('&s=')
+    signed_url, e = url.rsplit('&s=', 1)
     # remove expire-param from url
-    base_url = base_url[:base_url.rfind('e=') - 1]
+    base_url = signed_url[:signed_url.rfind('e=') - 1]
+
+    # replace url-unsafe charackters in signature
+    e = e.replace(' ', '-')  # + signs are spaces in urls
+    e = e.replace('+', '-')  # + signs might have been urlencoded
+    e = e.replace('/', '_')
 
     check = get_secure_link(base_url, key, expire, 0)
-    return check == url
+    return check == signed_url + '&s=' + e
 
 
 def get_secure_link(url, key, expire=60, t=None):
