@@ -10,7 +10,7 @@ URLS = [
 ]
 
 # lets have some creazy utf-8 key
-KEYS = ['1234', 'SFwje rhawuer'] # TODO u'♥ unicode ♥'
+KEYS = ['1234asdf', u'♥ unicode ♥']
 
 # checl different expire times are used
 EXPIRES = [5, 60]

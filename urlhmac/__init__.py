@@ -13,6 +13,9 @@ def check_secure_link(url, key, t=None):
     :param key:
     :param t:
     """
+    if isinstance(key, unicode):
+        key = key.encode('utf-8')
+
     if '&s=' not in url:
         return False
         # raise AttributeError('{} is not a singed url'.format(
@@ -60,6 +63,9 @@ def get_secure_link(url, key, expire=60, t=None):
     :param int t: The current timestamp (utc)
     :rtype: str
     """
+    if isinstance(key, unicode):
+        key = key.encode('utf-8')
+        
     if '?' in url:
         url += '&'
     else:
