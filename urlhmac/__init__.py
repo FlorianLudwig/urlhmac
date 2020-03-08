@@ -2,11 +2,12 @@ import time
 import hmac
 import hashlib
 import base64
+from urllib import parse as urlparse
 
-try:
-    from urllib import parse as urlparse
-except ImportError:
-    from urlparse import urlparse
+__author__ = """Florian Ludwig"""
+__version__ = "0.1.0"
+
+
 
 
 def check_secure_link(url, key, t=None):
@@ -16,21 +17,15 @@ def check_secure_link(url, key, t=None):
     :param key:
     :param t:
     """
-    print(url)
     if "&s=" not in url:
         return False
-        # raise AttributeError('{} is not a singed url'.format(
-        #     repr(url)
-        # ))
 
     query = urlparse.urlparse(url).query
     query = urlparse.parse_qs(query)
 
     if not "e" in query:
         return False
-        # raise AttributeError('{} is not a singed url'.format(
-        #     repr(url)
-        # ))
+
     expire = query["e"][-1]
     if not expire.isdigit():
         return False
