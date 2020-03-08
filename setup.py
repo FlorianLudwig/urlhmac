@@ -27,7 +27,7 @@ setup(
         "Programming Language :: Python :: 3.7",
     ],
     name="urlhmac",
-    version="0.4.0",
+    version="0.5.0",
     url="",
     description="",
     install_requires=[],

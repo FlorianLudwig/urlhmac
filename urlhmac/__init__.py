@@ -5,7 +5,7 @@ import base64
 from urllib import parse as urlparse
 
 __author__ = """Florian Ludwig"""
-__version__ = "0.1.0"
+__version__ = "0.5.0"
 
 
 
