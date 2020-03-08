@@ -14,9 +14,9 @@ def iterate_testcases():
                     yield url, key, expire, t
 
 
-@pytest.mark.parametrize('implementation', [py, php])
+@pytest.mark.parametrize("implementation", [py, php])
 def test_check(implementation):
-    print('Check implementation', implementation)
+    print("Check implementation", implementation)
     for url, key, expire, t in iterate_testcases():
         signed = implementation.get_secure_link(url, key, expire, t)
         assert implementation.check_secure_link(signed, key, t=t)
@@ -30,14 +30,14 @@ def test_check(implementation):
         assert not implementation.check_secure_link(signed, key, t + expire + 1)
 
         # wrong key
-        assert not implementation.check_secure_link(signed, u'correct key', t=t)
+        assert not implementation.check_secure_link(signed, "correct key", t=t)
 
         signed = str(signed)
         # link is manipulated
         for i in range(len(signed)):
             tempered = signed[:i]
             tempered += chr(ord(signed[i]) + 1)  # change charackter at pos i
-            tempered += signed[i+1:]
+            tempered += signed[i + 1 :]
             assert not implementation.check_secure_link(tempered, key, t=t)
 
 
@@ -45,9 +45,9 @@ def test_url_compatibity():
     # check compatibility with different base64 encodings
     for url, key, expire, t in iterate_testcases():
         signed = py.get_secure_link(url, key, expire, t)
-        url = signed.replace(u'-', u' ')
-        url = signed.replace(u'_', u'/')
+        url = signed.replace("-", " ")
+        url = signed.replace("_", "/")
         assert py.check_secure_link(url, key, t=t)
 
-        url = signed.replace(u' ', u'+')
+        url = signed.replace(" ", "+")
         assert py.check_secure_link(url, key, t=t)

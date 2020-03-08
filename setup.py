@@ -1,9 +1,9 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
 from setuptools import setup, find_packages
 from setuptools.command.test import test as TestCommand
 
 
-version_suffix = ''
+version_suffix = ""
 
 
 class TestRunner(TestCommand):
@@ -14,26 +14,19 @@ class TestRunner(TestCommand):
 
     def run_tests(self):
         import tox
+
         tox.cmdline(self.test_args)
-
-
 
 
 setup(
     name="urlhmac",
     version="0.4.0" + version_suffix,
-    url='',
-    description='',
-    author='Florian Ludwig',
-    install_requires=[
-    ],
-    extras_requires={
-        'test': ['tox', 'pytest'],
-        'docs': ['sphinx_rtd_theme']
-    },
-    packages=['urlhmac'],
+    url="",
+    description="",
+    author="Florian Ludwig",
+    install_requires=[],
+    extras_requires={"test": ["tox", "pytest"], "docs": ["sphinx_rtd_theme"]},
+    packages=["urlhmac"],
     include_package_data=True,
-    cmdclass={
-        'test': TestRunner
-    }
+    cmdclass={"test": TestRunner},
 )
