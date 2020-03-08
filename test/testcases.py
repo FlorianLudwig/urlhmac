@@ -3,14 +3,14 @@ import time
 
 
 URLS = [
-    'just=some&post=data',
-    '/some/path',
-    'http://example.com/foo',
-    'http://example.com/foo?a=1'
+    u'just=some&post=data',
+    u'/some/path',
+    u'http://example.com/foo',
+    u'http://example.com/foo?a=1'
 ]
 
 # lets have some creazy utf-8 key
-KEYS = ['1234', 'SFwje rhawuer'] # TODO u'♥ unicode ♥'
+KEYS = [u'1234', u'SFwje rhawuer'] # TODO u'♥ unicode ♥'
 
 # checl different expire times are used
 EXPIRES = [5, 60]
