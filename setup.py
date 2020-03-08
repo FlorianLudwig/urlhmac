@@ -31,7 +31,7 @@ setup(
     url="",
     description="",
     install_requires=[],
-    extras_requires={"test": ["tox", "pytest"], "docs": ["sphinx_rtd_theme"]},
+    extras_requires={"test": ["pytest"], "docs": ["sphinx_rtd_theme"]},
     packages=["urlhmac"],
     include_package_data=True,
     cmdclass={"test": TestRunner},
